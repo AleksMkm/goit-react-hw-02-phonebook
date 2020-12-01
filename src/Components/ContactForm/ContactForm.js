@@ -18,7 +18,7 @@ class ContactForm extends Component {
       formRefs[formRefs.length - 1].blur();
       return;
     }
-    this.props.onSubmit(name, number);
+    this.props.onSubmit(name.trim(), number.trim());
     this.setState({ name: '', number: '' });
     formRefs[formRefs.length - 1].blur();
   };

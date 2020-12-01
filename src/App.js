@@ -20,6 +20,17 @@ class App extends Component {
   };
 
   addContact = (name, number) => {
+    const { contacts } = this.state;
+
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase(),
+      )
+    ) {
+      alert(`${name} is already in Phonebook`);
+      return;
+    }
+
     const newContact = {
       id: uniqueId(),
       name,
@@ -37,7 +48,7 @@ class App extends Component {
 
   getFilteredContacts = () => {
     const { contacts, filter } = this.state;
-    const normalizedFilter = filter.toLocaleLowerCase().trim();
+    const normalizedFilter = filter.toLowerCase().trim();
 
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter),
