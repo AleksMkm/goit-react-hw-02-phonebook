@@ -9,6 +9,11 @@ class ContactForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    if (this.state.name.trim() === '') {
+      this.setState({ name: '' });
+      e.currentTarget[1].blur();
+      return;
+    }
     this.props.onSubmit(this.state.name);
     this.setState({ name: '' });
     e.currentTarget[1].blur();
