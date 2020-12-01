@@ -1,7 +1,26 @@
 .contact {
+  display: flex;
+  justify-content: space-between;
+
   font-family: Roboto, sans-serif;
 }
 
 .contact:not(:last-child) {
   margin-bottom: 5px;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+}
+
+.phone {
+  display: flex;
+  align-items: center;
+
+  min-width: 150px;
 }

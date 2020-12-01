@@ -5,26 +5,30 @@ import styles from './ContactForm.module.css';
 class ContactForm extends Component {
   state = {
     name: '',
+    number: '',
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.name.trim() === '') {
-      this.setState({ name: '' });
-      e.currentTarget[1].blur();
+    const { name, number } = this.state;
+    const formRefs = e.currentTarget;
+    if (name.trim() === '' || number.trim() === '') {
+      // this.setState({ name: '', number: '' });
+      alert('Please fill all fields!');
+      formRefs[formRefs.length - 1].blur();
       return;
     }
-    this.props.onSubmit(this.state.name);
-    this.setState({ name: '' });
-    e.currentTarget[1].blur();
+    this.props.onSubmit(name, number);
+    this.setState({ name: '', number: '' });
+    formRefs[formRefs.length - 1].blur();
   };
 
   handleChange = ({ currentTarget }) => {
-    this.setState({ name: currentTarget.value });
+    this.setState({ [currentTarget.name]: currentTarget.value });
   };
 
   render() {
-    const { name } = this.state;
+    const { name, number } = this.state;
 
     return (
       <form className={styles.form} onSubmit={this.handleSubmit}>
@@ -33,6 +37,18 @@ class ContactForm extends Component {
             className={styles.addField}
             type="text"
             value={name}
+            name="name"
+            placeholder="name"
+            onChange={this.handleChange}
+          />
+        </label>
+        <label>
+          <input
+            className={styles.addField}
+            type="text"
+            value={number}
+            name="number"
+            placeholder="xxxx-xx-xx"
             onChange={this.handleChange}
           />
           <button className={styles.btn} type="submit">

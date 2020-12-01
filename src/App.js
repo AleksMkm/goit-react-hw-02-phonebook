@@ -14,14 +14,14 @@ const initialState = [
 
 class App extends Component {
   state = {
-    name: '',
     contacts: initialState,
   };
 
-  addContact = name => {
+  addContact = (name, number) => {
     const newContact = {
       id: uniqueId(),
       name,
+      number,
     };
 
     this.setState(({ contacts }) => ({
