@@ -4,6 +4,7 @@ import Container from './Components/Container';
 import ContactList from './Components/ContactList';
 import ContactForm from './Components/ContactForm';
 import Section from './Components/Section';
+import Filter from './Components/Filter';
 
 const initialState = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -15,6 +16,7 @@ const initialState = [
 class App extends Component {
   state = {
     contacts: initialState,
+    filter: '',
   };
 
   addContact = (name, number) => {
@@ -29,12 +31,35 @@ class App extends Component {
     }));
   };
 
+  handleFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  getFilteredContacts = () => {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLocaleLowerCase().trim();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
+    );
+  };
+
   render() {
+    const { contacts, filter } = this.state;
+    const visibleContacts = this.getFilteredContacts();
+
     return (
       <Container>
         <Section title="Phonebook">
           <ContactForm onSubmit={this.addContact} />
-          <ContactList contacts={this.state.contacts} />
+        </Section>
+        <Section title="Contacts">
+          <Filter value={filter} onChange={this.handleFilter} />
+          {filter.trim() ? (
+            <ContactList contacts={visibleContacts} />
+          ) : (
+            <ContactList contacts={contacts} />
+          )}
         </Section>
       </Container>
     );
