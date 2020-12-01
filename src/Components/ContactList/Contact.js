@@ -4,7 +4,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import styles from './Contact.module.css';
 
-function Contact({ id, name, phone }) {
+function Contact({ id, name, phone, deleteHandler }) {
   return (
     <li key={id} className={styles.contact}>
       <span className={styles.name}>
@@ -16,6 +16,10 @@ function Contact({ id, name, phone }) {
         <PhoneIphoneIcon className={styles.icon} />
         {phone}
       </span>
+
+      <button className={styles.btn} onClick={deleteHandler} data-id={id}>
+        Delete
+      </button>
     </li>
   );
 }
@@ -24,6 +28,7 @@ Contact.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
+  deleteHandler: PropTypes.func.isRequired,
 };
 
 export default Contact;

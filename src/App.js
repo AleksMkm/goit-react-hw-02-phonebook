@@ -55,9 +55,18 @@ class App extends Component {
     );
   };
 
+  deleteContact = e => {
+    const deletedId = e.currentTarget.dataset.id;
+
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== deletedId),
+    }));
+    e.currentTarget.blur();
+  };
+
   render() {
     const { contacts, filter } = this.state;
-    const visibleContacts = this.getFilteredContacts();
+    const filteredContacts = this.getFilteredContacts();
 
     return (
       <Container>
@@ -67,9 +76,15 @@ class App extends Component {
         <Section title="Contacts">
           <Filter value={filter} onChange={this.handleFilter} />
           {filter.trim() ? (
-            <ContactList contacts={visibleContacts} />
+            <ContactList
+              contacts={filteredContacts}
+              deleteHandler={this.deleteContact}
+            />
           ) : (
-            <ContactList contacts={contacts} />
+            <ContactList
+              contacts={contacts}
+              deleteHandler={this.deleteContact}
+            />
           )}
         </Section>
       </Container>
