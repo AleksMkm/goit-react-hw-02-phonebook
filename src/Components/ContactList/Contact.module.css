@@ -1,0 +1,7 @@
+.contact {
+  font-family: Roboto, sans-serif;
+}
+
+.contact:not(:last-child) {
+  margin-bottom: 5px;
+}
